@@ -44,7 +44,7 @@ void Graph::read_graph(char *filename) {
             }
         } else if (line[0] == 'T') {
             if (counter_edges != num_edges) {
-                cout << "" << endl;
+                cout << "E" << endl;
                 exit(1);
             }
         }
@@ -54,13 +54,13 @@ void Graph::read_graph(char *filename) {
 }
 
 void Graph::print() {
-    // Print vertices
+    // Print vertices   
     for (int i = 0; i < num_vertices; i++) {
         cout << "Vertice " << i << ": ";
         Edge *edge = vertices[i].edges;
 
         while (edge) {
-            cout << edge->id << " ";
+            cout << "["<< edge->id << ", " << edge->cost << "] ";
             edge = edge->next;
         }
         cout << endl;
