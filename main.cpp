@@ -1,6 +1,7 @@
 #include <graph.h>
 #include <glpk.h>
 #include <string>
+#include <vector>
 
 struct Variable {
     int id;
@@ -9,6 +10,11 @@ struct Variable {
     int destiny;
 };
 
+/*
+    @params:
+    @description:
+    @return:
+*/
 int get_id_variable_by_name(string name, Variable *variables, int num_variables) {
     for (int i = 0; i < num_variables; i++) {
         if (variables[i].name == name) {
@@ -17,6 +23,21 @@ int get_id_variable_by_name(string name, Variable *variables, int num_variables)
     }
 
     return -1;
+}
+
+/*
+    @params:
+    @description:
+    @return:
+*/
+Variable get_variable_by_origin(int origin, Variable *variables, int num_variables) {
+    for (int i = 0; i < num_variables; i++) {
+        if (variables[i].origin == origin) {
+            return variables[i];
+        }
+    }
+
+    return Variable();
 }
 
 int main(int argc, char **argv) {
@@ -28,6 +49,7 @@ int main(int argc, char **argv) {
     Graph graph = Graph(filename);
     int *ia, *ja;
     double *ar;
+    vector<Variable> variables_path;
 
     int num_vertices = graph.get_num_vertices();
     int num_edges = graph.get_num_edges();
@@ -147,11 +169,38 @@ int main(int argc, char **argv) {
             double x = glp_get_col_prim(lp, i+1);
 
             if (x > 0.0) {
+                variables_path.push_back(variables[i]);
                 printf("V %d %d %.3f\n", variables[i].origin, variables[i].destiny, x);
             }
         }
 
+        vector<Variable> path;
+
+        for (int i = 0; i < variables_path.size(); i++) {
+            if (variables_path[i].origin == s) {
+                path.push_back(variables_path[i]);
+                variables_path.erase(variables_path.begin() + i);
+            }
+        }
+
+        while (variables_path.size()) {
+            int dest = path.back().destiny;
+
+            for (int i = 0; i < variables_path.size(); i++) {
+                if (variables_path[i].origin == dest) {
+                    path.push_back(variables_path[i]);
+                    variables_path.erase(variables_path.begin() + i);
+                }
+            }
+        }
+
         cout << "P ";
+
+        for (int i = 0; i < path.size(); i++) {
+            cout << path[i].origin << " ";
+        }
+
+        cout << path.back().destiny << endl;
 
         return 0;
     }
