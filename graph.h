@@ -3,25 +3,27 @@
 
 using namespace std;
 
+struct Edge {
+    int id;
+    int cost;
+    Edge *next;
+};
+
+struct Vertex {
+    int id;
+    Edge *edges;
+};
+
 class Graph {
     public:
         Graph(char *filename);
         void print();
         int get_num_vertices();
+        int get_num_edges();
+        Edge* get_vertex_edges(int vertex);
 
     private:
-        struct Edge {
-            int id;
-            int cost;
-            Edge *next;
-        };
-    
-        struct Vertex {
-            int id;
-            Edge *edges;
-        };
-
-        Vertex *vertices; 
+        Vertex *vertices;
 
         int num_vertices;
         int num_edges;
