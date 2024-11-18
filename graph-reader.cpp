@@ -5,9 +5,10 @@ Graph::Graph(char *filename) {
 }
 
 /*
-    @params:
-    @description:
-    @return:
+    @params: char* filename - Nome do arquivo que contém o grafo
+    @description: Este método realiza a leitura do grafo, através do arquivo, e
+    o armazena em uma lista de adjacências.
+    @return: void
 */
 void Graph::read_graph(char *filename) {
     ifstream file(filename);

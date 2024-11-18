@@ -7,6 +7,7 @@ class Graph {
     public:
         Graph(char *filename);
         void print();
+        int get_num_vertices();
 
     private:
         struct Edge {
