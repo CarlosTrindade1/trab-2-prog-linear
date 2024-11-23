@@ -53,17 +53,3 @@ void Graph::read_graph(char *filename) {
 
     file.close();
 }
-
-void Graph::print() {
-    // Print vertices   
-    for (int i = 0; i < num_vertices; i++) {
-        cout << "Vertice " << i << ": ";
-        Edge *edge = vertices[i].edges;
-
-        while (edge) {
-            cout << "["<< edge->id << ", " << edge->cost << "] ";
-            edge = edge->next;
-        }
-        cout << endl;
-    }
-}

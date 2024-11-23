@@ -12,8 +12,12 @@ struct Variable {
 
 /*
     @params:
-    @description:
+        - string name: nome da variável
+        - Variable *variables: vetor de variáveis
+        - int num_variables: número de variáveis
+    @description: Esta função retorna o identificador de uma varível dado o seu nome
     @return:
+        - int: identificador da variável
 */
 int get_id_variable_by_name(string name, Variable *variables, int num_variables) {
     for (int i = 0; i < num_variables; i++) {
@@ -27,8 +31,12 @@ int get_id_variable_by_name(string name, Variable *variables, int num_variables)
 
 /*
     @params:
-    @description:
+        - int origin: identificador do vértice de origem
+        - Variable *variables: vetor de variáveis
+        - int num_variables: número de variáveis
+    @description: Esta função retorna uma variável dado o identificador do vértice de origem
     @return:
+        - Variable: variável
 */
 Variable get_variable_by_origin(int origin, Variable *variables, int num_variables) {
     for (int i = 0; i < num_variables; i++) {
@@ -44,6 +52,11 @@ int main(int argc, char **argv) {
     char *filename = argv[1];
     int s = atoi(argv[2]);
     int t = atoi(argv[3]);
+
+    /*
+        Declaração das estruturas necessárias para configurar e resolver
+        o problema
+    */
 
     glp_prob *lp;
     Graph graph = Graph(filename);
